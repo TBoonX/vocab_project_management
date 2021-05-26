@@ -26,6 +26,14 @@ DOAP is used to enhance Project with name, description, homepage and homepage in
 https://www.w3.org/TR/vocab-org/
 To express an organization, which every partner of a project is, ORG does provide a way to link members, describe the structure and specific information which could be relevant for projects.
 
+### NFO NEPOMUK File Ontology
+
+https://www.semanticdesktop.org/ontologies/2007/03/22/nfo/
+Should be used to express files which are relevant to a class instance.
+For tasks tmo:Attachment should be an instance of the relevant NFO class.
+All others could use the hasResource predicate.
+
+
 ### General ones
 foaf <http://xmlns.com/foaf/0.1/>
 xsd <http://www.w3.org/2001/XMLSchema#>

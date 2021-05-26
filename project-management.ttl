@@ -12,6 +12,7 @@
 @prefix dce11: <http://purl.org/dc/elements/1.1/> .
 @prefix dct: <http://purl.org/dc/terms/> .
 @prefix tmo: <http://www.semanticdesktop.org/ontologies/2008/05/20/tmo/v1.1/> .
+@prefix nfo: <http://www.semanticdesktop.org/ontologies/2007/03/22/nfo/v1.2/> .
 
 pm: a owl:Ontology;
 	dce11:description "";
@@ -34,13 +35,16 @@ pm:Contribution a owl:Class. # A workpackage has multiple contributions from dif
 pm:Project a owl:Class;
 	a doap:Project; #has name, description, homepage from doap
 	rdfs:subClassOf pm:Timed;
+	rdfs:subClassOf owl:Thing;
 	rdfs:subClassOf pm:Work.
 
 pm:Partner a owl:Class;
+	rdfs:subClassOf owl:Thing;
 	a foaf:Organization;
 	a org:Organization.
 
 pm:Workpackage a owl:Class;
+	rdfs:subClassOf owl:Thing;
 	rdfs:subClassOf pm:Countable;
 	rdfs:subClassOf pm:Timed;
 	rdfs:subClassOf pm:Work.
@@ -49,6 +53,7 @@ pm:Subworkpackage a owl:Class;
 	rdfs:subClassOf pm:Workpackage.
 
 pm:Milestone a owl:Class;
+	rdfs:subClassOf owl:Thing;
 	rdfs:subClassOf pm:Countable;
 	rdfs:subClassOf pm:Timed.
 
@@ -65,6 +70,7 @@ pm:PersonMonth a owl:Class;
 	rdfs:comment "A person month worth of work".
 
 pm:Description a owl:Class;
+	rdfs:subClassOf owl:Thing;
 	rdfs:comment "Provide additional information like requirements or results".
 
 
@@ -151,6 +157,12 @@ pm:specificFor  a owl:ObjectProperty;
 	rdfs:domain pm:Description ;
 	rdfs:range pm:Partner ;
 	rdfs:comment "Different partners have different descriptions for (sub)workpackages".
+
+pm:hasResource  a owl:ObjectProperty;
+	rdfs:domain owl:Thing ;
+	rdfs:range rdfs:Resource ;
+	rdfs:comment "Link to a resource from anything. Should use NFO".
+	
 
 
 
