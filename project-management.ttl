@@ -1,0 +1,157 @@
+@prefix pm: <http://infai.org/vocabs/project-management#> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix doap: <http://usefulinc.com/ns/doap#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+@prefix dce11: <http://purl.org/dc/elements/1.1/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix tmo: <http://www.semanticdesktop.org/ontologies/2008/05/20/tmo/v1.1/> .
+
+pm: a owl:Ontology;
+	dce11:description "";
+	dce11:title "Vocabulary to express project management at task level";
+	dce11:creator "Kurt Junghanns (InfAI)".
+
+#################################################################
+#    Classes
+#################################################################
+
+pm:Countable a owl:Class. # Has identifier (number or number.number or ...)
+
+pm:Timed a owl:Class. # Has start and end time
+
+pm:Work a owl:Class. # Has PersonMonths
+
+pm:Contribution a owl:Class. # A workpackage has multiple contributions from different partners
+
+pm:Project a owl:Class;
+	a doap:Project; #has name, description, homepage from doap
+	rdfs:subClassOf pm:Timed;
+	rdfs:subClassOf pm:Work.
+
+pm:Partner a owl:Class;
+	a foaf:Organization;
+	a org:Organization.
+
+pm:Workpackage a owl:Class;
+	rdfs:subClassOf pm:Countable;
+	rdfs:subClassOf pm:Timed;
+	rdfs:subClassOf pm:Work.
+
+pm:Subworkpackage a owl:Class;
+	rdfs:subClassOf pm:Workpackage.
+
+pm:Milestone a owl:Class;
+	rdfs:subClassOf pm:Countable;
+	rdfs:subClassOf pm:Timed.
+
+pm:Task a owl:class;
+	a tmo:Task;
+	rdfs:subClassOf pm:Countable;
+	rdfs:subClassOf pm:Timed;
+	rdfs:subClassOf pm:Work.
+
+pm:ProjectMonth a owl:Class;
+	rdfs:comment "Provide the month of the project, where 1 is the first month of the project".
+
+pm:PersonMonth a owl:Class;
+	rdfs:comment "A person month worth of work".
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+pm:ofProject a owl:ObjectProperty;
+	rdfs:domain pm:Workpackage ;
+	rdfs:range pm:Project ;
+	rdfs:label "Connects workpackage to project".
+
+pm:isPartner a owl:ObjectProperty;
+	rdfs:domain pm:Project ;
+	rdfs:range pm:Partner ;
+	rdfs:label "Connects project to partners".
+
+pm:start  a owl:ObjectProperty;
+	rdfs:domain pm:Timed ;
+	rdfs:range pm:ProjectMonth ;
+	rdfs:label "Project month to start".
+
+pm:end  a owl:ObjectProperty;
+	rdfs:domain pm:Timed ;
+	rdfs:range pm:ProjectMonth ;
+	rdfs:label "Project month to end".
+
+pm:hasTopworkpackage  a owl:ObjectProperty;
+	rdfs:domain pm:Subworkpackage ;
+	rdfs:range pm:Workpackage ;
+	rdfs:label "Relation to upper workpackage".
+
+pm:overallPersonMonths  a owl:ObjectProperty;
+	rdfs:domain pm:Work ;
+	rdfs:range pm:PersonMonth ;
+	rdfs:label "Person months planned".
+
+pm:leads  a owl:ObjectProperty;
+	rdfs:domain pm:Partner ;
+	rdfs:range pm:Workpackage ;
+	rdfs:label "Lead over (sub)workpackage".
+
+pm:inCharge  a owl:ObjectProperty;
+	rdfs:domain pm:Partner ;
+	rdfs:range pm:Subworkpackage ;
+	rdfs:label "In charge of realizing the subworkpackage".
+
+pm:hasContributor  a owl:ObjectProperty;
+	rdfs:domain pm:Contribution ;
+	rdfs:range pm:Partner ;
+	rdfs:label "".
+
+pm:hasPersonMonths  a owl:ObjectProperty;
+	rdfs:domain pm:Contribution ;
+	rdfs:range pm:PersonMonth ;
+	rdfs:label "".
+
+pm:hasWork  a owl:ObjectProperty;
+	rdfs:domain pm:Contribution ;
+	rdfs:range pm:Work ; # workpackage for example
+	rdfs:label "".
+
+pm:linkedToMilestone  a owl:ObjectProperty;
+	rdfs:domain pm:Subworkpackage ;
+	rdfs:range pm:Milestone ;
+	rdfs:label "".
+
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+pm:hasNumber a owl:DatatypeProperty;
+	rdfs:domain pm:Countable;
+	rdfs:range rdfs:Literal;
+	rdfs:label "Gives individual a distinct number or identifier".
+
+pm:monthNumer a owl:DatatypeProperty;
+	rdfs:domain pm:ProjectMonth;
+	rdfs:range xsd:integer.
+
+pm:workamount a owl:DatatypeProperty;
+	rdfs:domain pm:PersonMonth;
+	rdfs:range xsd:double.
+
+
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+
