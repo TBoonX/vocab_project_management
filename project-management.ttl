@@ -128,6 +128,11 @@ pm:linkedToMilestone  a owl:ObjectProperty;
 	rdfs:range pm:Milestone ;
 	rdfs:label "".
 
+pm:hasCompoundMilestone  a owl:ObjectProperty;
+	rdfs:domain pm:Milestone ;
+	rdfs:range pm:Milestone ;
+	rdfs:label "".
+
 
 
 #################################################################
@@ -146,6 +151,10 @@ pm:monthNumer a owl:DatatypeProperty;
 pm:workamount a owl:DatatypeProperty;
 	rdfs:domain pm:PersonMonth;
 	rdfs:range xsd:double.
+
+pm:isAbortCriteria a owl:DatatypeProperty;
+	rdfs:domain pm:Milestone;
+	rdfs:range xsd:boolean.
 
 
 
