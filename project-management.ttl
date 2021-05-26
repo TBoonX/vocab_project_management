@@ -142,10 +142,15 @@ pm:takesPlace  a owl:ObjectProperty;
 	rdfs:range pm:Work ;
 	rdfs:comment "Does link work together and also builds a hierarchy".
 
-pm:hasDescription  a owl:ObjectProperty;
-	rdfs:domain pm:Workpackage ;
-	rdfs:range pm:Description ;
+pm:descriptionFor  a owl:ObjectProperty;
+	rdfs:domain pm:Description ;
+	rdfs:range pm:Workpackage ;
 	rdfs:comment "".
+
+pm:specificFor  a owl:ObjectProperty;
+	rdfs:domain pm:Description ;
+	rdfs:range pm:Partner ;
+	rdfs:comment "Different partners have different descriptions for (sub)workpackages".
 
 
 
@@ -191,6 +196,10 @@ pm:solutionProcess a owl:DatatypeProperty;
 	rdfs:range rdfs:Literal.
 
 pm:result a owl:DatatypeProperty;
+	rdfs:domain pm:Description;
+	rdfs:range rdfs:Literal.
+
+pm:otherResources a owl:DatatypeProperty;
 	rdfs:domain pm:Description;
 	rdfs:range rdfs:Literal.
 
