@@ -20,6 +20,7 @@ pm: a owl:Ontology;
 
 #################################################################
 #    Classes
+# All instances of them should have a label and a description
 #################################################################
 
 pm:Countable a owl:Class. # Has identifier (number or number.number or ...)
@@ -51,7 +52,7 @@ pm:Milestone a owl:Class;
 	rdfs:subClassOf pm:Countable;
 	rdfs:subClassOf pm:Timed.
 
-pm:Task a owl:class;
+pm:Task a owl:Class;
 	a tmo:Task;
 	rdfs:subClassOf pm:Countable;
 	rdfs:subClassOf pm:Timed;
@@ -63,6 +64,9 @@ pm:ProjectMonth a owl:Class;
 pm:PersonMonth a owl:Class;
 	rdfs:comment "A person month worth of work".
 
+pm:Description a owl:Class;
+	rdfs:comment "Provide additional information like requirements or results".
+
 
 #################################################################
 #    Object Properties
@@ -71,67 +75,77 @@ pm:PersonMonth a owl:Class;
 pm:ofProject a owl:ObjectProperty;
 	rdfs:domain pm:Workpackage ;
 	rdfs:range pm:Project ;
-	rdfs:label "Connects workpackage to project".
+	rdfs:comment "Connects workpackage to project".
 
-pm:isPartner a owl:ObjectProperty;
+pm:hasPartner a owl:ObjectProperty;
 	rdfs:domain pm:Project ;
 	rdfs:range pm:Partner ;
-	rdfs:label "Connects project to partners".
+	rdfs:comment "Connects project to partners".
 
 pm:start  a owl:ObjectProperty;
 	rdfs:domain pm:Timed ;
 	rdfs:range pm:ProjectMonth ;
-	rdfs:label "Project month to start".
+	rdfs:comment "Project month to start".
 
 pm:end  a owl:ObjectProperty;
 	rdfs:domain pm:Timed ;
 	rdfs:range pm:ProjectMonth ;
-	rdfs:label "Project month to end".
+	rdfs:comment "Project month to end".
 
 pm:hasTopworkpackage  a owl:ObjectProperty;
 	rdfs:domain pm:Subworkpackage ;
 	rdfs:range pm:Workpackage ;
-	rdfs:label "Relation to upper workpackage".
+	rdfs:comment "Relation to upper workpackage".
 
 pm:overallPersonMonths  a owl:ObjectProperty;
 	rdfs:domain pm:Work ;
 	rdfs:range pm:PersonMonth ;
-	rdfs:label "Person months planned".
+	rdfs:comment "Person months planned".
 
 pm:leads  a owl:ObjectProperty;
 	rdfs:domain pm:Partner ;
 	rdfs:range pm:Workpackage ;
-	rdfs:label "Lead over (sub)workpackage".
+	rdfs:comment "Lead over (sub)workpackage".
 
 pm:inCharge  a owl:ObjectProperty;
 	rdfs:domain pm:Partner ;
 	rdfs:range pm:Subworkpackage ;
-	rdfs:label "In charge of realizing the subworkpackage".
+	rdfs:comment "In charge of realizing the subworkpackage".
 
 pm:hasContributor  a owl:ObjectProperty;
 	rdfs:domain pm:Contribution ;
 	rdfs:range pm:Partner ;
-	rdfs:label "".
+	rdfs:comment "".
 
 pm:hasPersonMonths  a owl:ObjectProperty;
 	rdfs:domain pm:Contribution ;
 	rdfs:range pm:PersonMonth ;
-	rdfs:label "".
+	rdfs:comment "".
 
 pm:hasWork  a owl:ObjectProperty;
 	rdfs:domain pm:Contribution ;
 	rdfs:range pm:Work ; # workpackage for example
-	rdfs:label "".
+	rdfs:comment "".
 
 pm:linkedToMilestone  a owl:ObjectProperty;
-	rdfs:domain pm:Subworkpackage ;
+	rdfs:domain pm:Work ;
 	rdfs:range pm:Milestone ;
-	rdfs:label "".
+	rdfs:comment "".
 
 pm:hasCompoundMilestone  a owl:ObjectProperty;
 	rdfs:domain pm:Milestone ;
 	rdfs:range pm:Milestone ;
-	rdfs:label "".
+	rdfs:comment "".
+
+pm:takesPlace  a owl:ObjectProperty;
+	rdfs:domain pm:Work ;
+	rdfs:range pm:Work ;
+	rdfs:comment "Does link work together and also builds a hierarchy".
+
+pm:hasDescription  a owl:ObjectProperty;
+	rdfs:domain pm:Workpackage ;
+	rdfs:range pm:Description ;
+	rdfs:comment "".
 
 
 
@@ -142,7 +156,7 @@ pm:hasCompoundMilestone  a owl:ObjectProperty;
 pm:hasNumber a owl:DatatypeProperty;
 	rdfs:domain pm:Countable;
 	rdfs:range rdfs:Literal;
-	rdfs:label "Gives individual a distinct number or identifier".
+	rdfs:comment "Gives individual a distinct number or identifier".
 
 pm:monthNumer a owl:DatatypeProperty;
 	rdfs:domain pm:ProjectMonth;
@@ -152,9 +166,33 @@ pm:workamount a owl:DatatypeProperty;
 	rdfs:domain pm:PersonMonth;
 	rdfs:range xsd:double.
 
+pm:scientificWorkamount a owl:DatatypeProperty;
+	rdfs:domain pm:PersonMonth;
+	rdfs:range xsd:double.
+
+pm:technicalWorkamount a owl:DatatypeProperty;
+	rdfs:domain pm:PersonMonth;
+	rdfs:range xsd:double.
+
+pm:organizationalWorkamount a owl:DatatypeProperty;
+	rdfs:domain pm:PersonMonth;
+	rdfs:range xsd:double.
+
 pm:isAbortCriteria a owl:DatatypeProperty;
 	rdfs:domain pm:Milestone;
 	rdfs:range xsd:boolean.
+
+pm:requirement a owl:DatatypeProperty;
+	rdfs:domain pm:Description;
+	rdfs:range rdfs:Literal.
+
+pm:solutionProcess a owl:DatatypeProperty;
+	rdfs:domain pm:Description;
+	rdfs:range rdfs:Literal.
+
+pm:result a owl:DatatypeProperty;
+	rdfs:domain pm:Description;
+	rdfs:range rdfs:Literal.
 
 
 
