@@ -13,6 +13,7 @@
 @prefix dct: <http://purl.org/dc/terms/> .
 @prefix tmo: <http://www.semanticdesktop.org/ontologies/2008/05/20/tmo/v1.1/> .
 @prefix nfo: <http://www.semanticdesktop.org/ontologies/2007/03/22/nfo/v1.2/> .
+@prefix e: <http://example.de> .
 
 pm: a owl:Ontology;
 	dce11:description "";
@@ -141,9 +142,9 @@ pm:linkedToMilestone  a owl:ObjectProperty;
 pm:hasCompoundMilestone  a owl:ObjectProperty;
 	rdfs:domain pm:Milestone ;
 	rdfs:range pm:Milestone ;
-	rdfs:comment "".
+	rdfs:comment "A big milestone could consist of multiple smaller ones which are its compunds.".
 
-pm:takesPlace  a owl:ObjectProperty;
+pm:takesPlaceIn  a owl:ObjectProperty;
 	rdfs:domain pm:Work ;
 	rdfs:range pm:Work ;
 	rdfs:comment "Does link work together and also builds a hierarchy".
@@ -175,7 +176,7 @@ pm:hasNumber a owl:DatatypeProperty;
 	rdfs:range rdfs:Literal;
 	rdfs:comment "Gives individual a distinct number or identifier".
 
-pm:monthNumer a owl:DatatypeProperty;
+pm:monthNumber a owl:DatatypeProperty;
 	rdfs:domain pm:ProjectMonth;
 	rdfs:range xsd:integer.
 
@@ -214,12 +215,3 @@ pm:result a owl:DatatypeProperty;
 pm:otherResources a owl:DatatypeProperty;
 	rdfs:domain pm:Description;
 	rdfs:range rdfs:Literal.
-
-
-
-
-#################################################################
-#    Individuals
-#################################################################
-
-

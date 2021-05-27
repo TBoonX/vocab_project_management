@@ -1,0 +1,103 @@
+@prefix pm: <http://infai.org/vocabs/project-management#> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix doap: <http://usefulinc.com/ns/doap#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+@prefix dce11: <http://purl.org/dc/elements/1.1/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix tmo: <http://www.semanticdesktop.org/ontologies/2008/05/20/tmo/v1.1/> .
+@prefix nfo: <http://www.semanticdesktop.org/ontologies/2007/03/22/nfo/v1.2/> .
+@prefix e: <http://example.de> .
+
+#################################################################
+#    Individuals
+#################################################################
+
+e:Coypu a pm:Project;
+	pm:hasPartner e:InfAI;
+	rdfs:label "CoyPu"@de.
+
+e:InfAI a pm:Partner;
+	pm:leads e:AP1.
+
+e:AP1 a pm:Workpackage;
+	pm:ofProject e:Coypu;
+	pm:hasNumber "AP 1";
+	pm:start e:ProjM-A;
+	pm:end e:ProjM-B;
+	pm:overallPersonMonths e:PersM-A;
+	rdfs:label "Anforderungsanalyse an das CoyPu-Ökosystem mit Unterstützung der Anwendungspartner"@de;
+	dce11:description "Ziel: Die zentralen Anwendungsfälle werden gemäß agiler Methodik zunächst als Epics und User Stories erfasst, wobei ..."@de.
+
+e:M1 a pm:Milestone;
+	pm:ofProject e:Coypu;
+	pm:hasCompoundMilestone e:M1.1;
+	pm:isAbortCriteria "false"^^xsd:boolean;
+	pm:end e:ProjM-D;
+	rdfs:label "Anforderungen an CoyPu-Ökosystem definiert; Anwendungsfälle und Analyse-Fragestellungen konkretisiert; initiale Datenübersicht erstellt, Referenzarchitektur"@de.
+
+e:M1.1 a pm:Milestone;
+	pm:ofProject e:Coypu;
+	pm:isAbortCriteria "false"^^xsd:boolean;
+	pm:end e:ProjM-D;
+	rdfs:label "Anforderungen an CoyPu-Ökosystem, Anwendungsfälle sind definiert; initiale Datenübersicht erstellt, Architektur und Komponenten sowie Schnittstellen spezifiziert"@de.
+
+e:ProjM-A a pm:ProjectMonth;
+	pm:monthNumber "1"^^xsd:double.
+
+e:ProjM-B a pm:ProjectMonth;
+	pm:monthNumber "36"^^xsd:double.
+
+e:PersM-A a pm:PersonMonth;
+	pm:workamount "110"^^xsd:double.
+
+e:C-A a pm:Contribution;
+	pm:hasContributor e:InfAI;
+	pm:hasPersonMonths e:PersM-B;
+	pm:hasWork e:AP1.
+
+e:PersM-B a pm:PersonMonth;
+	pm:workamount "19"^^xsd:double.
+
+e:UAP1.1 a pm:Subworkpackage;
+	pm:hasTopworkpackage e:AP1;
+	pm:hasNumber "UAP-1.1";
+	rdfs:label "Erarbeitung der Anforderungen (Epics) an das Ökosystem auf Grundlage der zu spezifizierenden Use Cases; Bewertungen, Dokumentationen und Spezifikationen umzusetzender technischen Anforderungen"@de;
+	pm:overallPersonMonths e:PersM-C.
+
+e:PersM-C a pm:PersonMonth;
+	pm:workamount "45"^^xsd:double.
+
+e:T-A a pm:Task;
+	pm:hasNumber "Arbeitsschritt 1.1.1";
+	pm:start e:ProjM-A;
+	pm:end e:ProjM-C;
+	pm:overallPersonMonths e:PersM-C;
+	pm:linkedToMilestone e:M1.1;
+	pm:takesPlaceIn e:UAP1.1;
+	rdfs:label "Initiale Erfassung technischer Anforderungen an die CoyPu-Infrastruktur und Konkretisierung Infrastrukturanforderungen"@de;
+	dce11:description "Evaluation des aktuellen State of the Art technischer Lösungen (Hardware und Software) als Vorbereitung ..."@de.
+
+e:ProjM-C a pm:ProjectMonth;
+	pm:monthNumber "2"^^xsd:double.
+
+e:PersM-C a pm:PersonMonth;
+	pm:workamount "1"^^xsd:double;
+	pm:scientificWorkamount "1"^^xsd:double.
+
+e:ProjM-D a pm:ProjectMonth;
+	pm:monthNumber "6"^^xsd:double.
+
+e:D-A a pm:Description;
+	pm:descriptionFor e:AP1;
+	pm:specificFor e:InfAI;
+	pm:requirement ""@de;
+	pm:solutionProcess ""@de;
+	pm:result "Anforderungen, Anwendungsszenarien, Referenzarchitektur"@de;
+	pm:otherResources "Material, Investitionsgüter, Aufträge etc. hier nur aufführen; detaillierte Erläuterung unter Ressourcenplanung"@de.
