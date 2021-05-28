@@ -34,15 +34,14 @@ pm:Work a owl:Class. # Has PersonMonths
 pm:Contribution a owl:Class. # A workpackage has multiple contributions from different partners
 
 pm:Project a owl:Class;
-	a doap:Project; #has name, description, homepage from doap
 	rdfs:subClassOf pm:Timed;
 	rdfs:subClassOf owl:Thing;
 	rdfs:subClassOf pm:Work.
 
 pm:Partner a owl:Class;
 	rdfs:subClassOf owl:Thing;
-	a foaf:Organization;
-	a org:Organization.
+	rdfs:subClassOf foaf:Organization;
+	rdfs:subClassOf org:Organization.
 
 pm:Workpackage a owl:Class;
 	rdfs:subClassOf owl:Thing;
@@ -59,7 +58,7 @@ pm:Milestone a owl:Class;
 	rdfs:subClassOf pm:Timed.
 
 pm:Task a owl:Class;
-	a tmo:Task;
+	rdfs:subClassOf tmo:Task;
 	rdfs:subClassOf pm:Countable;
 	rdfs:subClassOf pm:Timed;
 	rdfs:subClassOf pm:Work.
