@@ -1,4 +1,4 @@
-@prefix pm: <http://infai.org/vocabs/project-management#> .
+@prefix pmv: <http://vocabs.coypu.org/pmv/> .
 @prefix org: <http://www.w3.org/ns/org#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -13,155 +13,185 @@
 @prefix dct: <http://purl.org/dc/terms/> .
 @prefix tmo: <http://www.semanticdesktop.org/ontologies/2008/05/20/tmo/v1.1/> .
 @prefix nfo: <http://www.semanticdesktop.org/ontologies/2007/03/22/nfo/v1.2/> .
-@prefix e: <http://example.de> .
 
-pm: a owl:Ontology;
-	dce11:description "";
-	dce11:title "Vocabulary to express project management at task level";
-	dce11:creator "Kurt Junghanns (InfAI)".
+pmv: a owl:Ontology;
+	dce11:description "This vocabulary is modeling project management in scientific research projects at the level of the application phase and afterwards for the work with tasks."@de;
+	dce11:title "Vocabulary to express project management at task level"@en;
+	dce11:creator "Kurt Junghanns (InfAI)"@en;
+	rdfs:label "PMV"@en.
 
 #################################################################
 #    Classes
 # All instances of them should have a label and a description
 #################################################################
 
-pm:Countable a owl:Class. # Has identifier (number or number.number or ...)
+pmv:Countable a owl:Class;
+	rdfs:label "Nummerierbar"@de. # Has identifier (number or number.number or ...)
 
-pm:Timed a owl:Class. # Has start and end time
+pmv:Timed a owl:Class;
+	rdfs:label "Zeitlich geplant"@de. # Has start and end time
 
-pm:Work a owl:Class. # Has PersonMonths
+pmv:Work a owl:Class;
+	rdfs:label "Arbeit"@de. # Has PersonMonths
 
-pm:Contribution a owl:Class. # A workpackage has multiple contributions from different partners
+pmv:Contribution a owl:Class;
+	rdfs:label "Beitrag"@de. # A workpackage has multiple contributions from different partners
 
-pm:Project a owl:Class;
-	rdfs:subClassOf pm:Timed;
+pmv:Project a owl:Class;
+	rdfs:subClassOf pmv:Timed;
 	rdfs:subClassOf owl:Thing;
-	rdfs:subClassOf pm:Work.
+	rdfs:subClassOf pmv:Work;
+	rdfs:label "Projekt"@de.
 
-pm:Partner a owl:Class;
+pmv:Partner a owl:Class;
 	rdfs:subClassOf owl:Thing;
 	rdfs:subClassOf foaf:Organization;
-	rdfs:subClassOf org:Organization.
+	rdfs:subClassOf org:Organization;
+	rdfs:label "Partner"@de.
 
-pm:Workpackage a owl:Class;
+pmv:Workpackage a owl:Class;
 	rdfs:subClassOf owl:Thing;
-	rdfs:subClassOf pm:Countable;
-	rdfs:subClassOf pm:Timed;
-	rdfs:subClassOf pm:Work.
+	rdfs:subClassOf pmv:Countable;
+	rdfs:subClassOf pmv:Timed;
+	rdfs:subClassOf pmv:Work;
+	rdfs:label "Arbeitspaket"@de.
 
-pm:Subworkpackage a owl:Class;
-	rdfs:subClassOf pm:Workpackage.
+pmv:Subworkpackage a owl:Class;
+	rdfs:subClassOf pmv:Workpackage;
+	rdfs:label "Unterarbeitspaket"@de.
 
-pm:Milestone a owl:Class;
+pmv:Milestone a owl:Class;
 	rdfs:subClassOf owl:Thing;
-	rdfs:subClassOf pm:Countable;
-	rdfs:subClassOf pm:Timed.
+	rdfs:subClassOf pmv:Countable;
+	rdfs:subClassOf pmv:Timed;
+	rdfs:label "Meilenstein"@de.
 
-pm:Task a owl:Class;
+pmv:Task a owl:Class;
 	rdfs:subClassOf tmo:Task;
-	rdfs:subClassOf pm:Countable;
-	rdfs:subClassOf pm:Timed;
-	rdfs:subClassOf pm:Work.
+	rdfs:subClassOf pmv:Countable;
+	rdfs:subClassOf pmv:Timed;
+	rdfs:subClassOf pmv:Work;
+	rdfs:label "Aufgabe"@de.
 
-pm:ProjectMonth a owl:Class;
-	rdfs:comment "Provide the month of the project, where 1 is the first month of the project".
+pmv:ProjectMonth a owl:Class;
+	rdfs:comment "Provide the month of the project, where 1 is the first month of the project"@en;
+	rdfs:label "Projektmonat"@de.
 
-pm:PersonMonth a owl:Class;
-	rdfs:comment "A person month worth of work".
+pmv:PersonMonth a owl:Class;
+	rdfs:comment "A person month worth of work"@en;
+	rdfs:label "Personenmonat"@de.
 
-pm:Description a owl:Class;
+pmv:Description a owl:Class;
 	rdfs:subClassOf owl:Thing;
-	rdfs:comment "Provide additional information like requirements or results".
+	rdfs:comment "Provide additional information like requirements or results"@en;
+	rdfs:label "Beschreibung"@de.
 
 
 #################################################################
 #    Object Properties
 #################################################################
 
-pm:ofProject a owl:ObjectProperty;
-	rdfs:domain pm:Workpackage ;
-	rdfs:range pm:Project ;
-	rdfs:comment "Connects workpackage to project".
+pmv:ofProject a owl:ObjectProperty;
+	rdfs:domain pmv:Workpackage ;
+	rdfs:range pmv:Project ;
+	rdfs:comment "Connects workpackage to project"@en;
+	rdfs:label "von Projekt"@de.
 
-pm:hasPartner a owl:ObjectProperty;
-	rdfs:domain pm:Project ;
-	rdfs:range pm:Partner ;
-	rdfs:comment "Connects project to partners".
+pmv:hasPartner a owl:ObjectProperty;
+	rdfs:domain pmv:Project ;
+	rdfs:range pmv:Partner ;
+	rdfs:comment "Connects project to partners"@en;
+	rdfs:label "hat Partner"@de.
 
-pm:start  a owl:ObjectProperty;
-	rdfs:domain pm:Timed ;
-	rdfs:range pm:ProjectMonth ;
-	rdfs:comment "Project month to start".
+pmv:start a owl:ObjectProperty;
+	rdfs:domain pmv:Timed ;
+	rdfs:range pmv:ProjectMonth ;
+	rdfs:comment "Project month to start"@en;
+	rdfs:label "Start"@de.
 
-pm:end  a owl:ObjectProperty;
-	rdfs:domain pm:Timed ;
-	rdfs:range pm:ProjectMonth ;
-	rdfs:comment "Project month to end".
+pmv:end a owl:ObjectProperty;
+	rdfs:domain pmv:Timed ;
+	rdfs:range pmv:ProjectMonth ;
+	rdfs:comment "Project month to end"@en;
+	rdfs:label "Ende"@de.
 
-pm:hasTopworkpackage  a owl:ObjectProperty;
-	rdfs:domain pm:Subworkpackage ;
-	rdfs:range pm:Workpackage ;
-	rdfs:comment "Relation to upper workpackage".
+pmv:hasTopworkpackage  a owl:ObjectProperty;
+	rdfs:domain pmv:Subworkpackage ;
+	rdfs:range pmv:Workpackage ;
+	rdfs:comment "Relation to upper workpackage"@en;
+	rdfs:label "hat übergeordnetes Arbeitspaket"@de.
 
-pm:overallPersonMonths  a owl:ObjectProperty;
-	rdfs:domain pm:Work ;
-	rdfs:range pm:PersonMonth ;
-	rdfs:comment "Person months planned".
+pmv:overallPersonMonths  a owl:ObjectProperty;
+	rdfs:domain pmv:Work ;
+	rdfs:range pmv:PersonMonth ;
+	rdfs:comment "Person months planned"@en;
+	rdfs:label "Summe Personenmonate"@de.
 
-pm:leads  a owl:ObjectProperty;
-	rdfs:domain pm:Partner ;
-	rdfs:range pm:Workpackage ;
-	rdfs:comment "Lead over (sub)workpackage".
+pmv:leads  a owl:ObjectProperty;
+	rdfs:domain pmv:Partner ;
+	rdfs:range pmv:Workpackage ;
+	rdfs:comment "Lead over (sub)workpackage"@en;
+	rdfs:label "führt"@de.
 
-pm:inCharge  a owl:ObjectProperty;
-	rdfs:domain pm:Partner ;
-	rdfs:range pm:Subworkpackage ;
-	rdfs:comment "In charge of realizing the subworkpackage".
+pmv:inCharge  a owl:ObjectProperty;
+	rdfs:domain pmv:Partner ;
+	rdfs:range pmv:Subworkpackage ;
+	rdfs:comment "In charge of realizing the subworkpackage"@en;
+	rdfs:label "zuständig"@de.
 
-pm:hasContributor  a owl:ObjectProperty;
-	rdfs:domain pm:Contribution ;
-	rdfs:range pm:Partner ;
-	rdfs:comment "".
+pmv:hasContributor  a owl:ObjectProperty;
+	rdfs:domain pmv:Contribution ;
+	rdfs:range pmv:Partner ;
+	rdfs:comment "Every contribution needs a related partner"@en;
+	rdfs:label "hat Mitarbeit von"@de.
 
-pm:hasPersonMonths  a owl:ObjectProperty;
-	rdfs:domain pm:Contribution ;
-	rdfs:range pm:PersonMonth ;
-	rdfs:comment "".
+pmv:hasPersonMonths  a owl:ObjectProperty;
+	rdfs:domain pmv:Contribution ;
+	rdfs:range pmv:PersonMonth ;
+	rdfs:comment "Every contribution needs an amount of person months"@en;
+	rdfs:label "hat Personenmonate"@de.
 
-pm:hasWork  a owl:ObjectProperty;
-	rdfs:domain pm:Contribution ;
-	rdfs:range pm:Work ; # workpackage for example
-	rdfs:comment "".
+pmv:hasWork  a owl:ObjectProperty;
+	rdfs:domain pmv:Contribution ;
+	rdfs:range pmv:Work ; # workpackage for example
+	rdfs:comment "Every contribution belongs to some work"@en;
+	rdfs:label "hat Arbeit"@de.
 
-pm:linkedToMilestone  a owl:ObjectProperty;
-	rdfs:domain pm:Work ;
-	rdfs:range pm:Milestone ;
-	rdfs:comment "".
+pmv:linkedToMilestone  a owl:ObjectProperty;
+	rdfs:domain pmv:Work ;
+	rdfs:range pmv:Milestone ;
+	rdfs:comment "Work could be realted to a milestone"@en;
+	rdfs:label "verknüpft mit Meilenstein"@de.
 
-pm:hasCompoundMilestone  a owl:ObjectProperty;
-	rdfs:domain pm:Milestone ;
-	rdfs:range pm:Milestone ;
-	rdfs:comment "A big milestone could consist of multiple smaller ones which are its compunds.".
+pmv:hasCompoundMilestone  a owl:ObjectProperty;
+	rdfs:domain pmv:Milestone ;
+	rdfs:range pmv:Milestone ;
+	rdfs:comment "A big milestone could consist of multiple smaller ones which are its compunds."@en;
+	rdfs:label "hat zusammengesetzten Meilenstein"@de.
 
-pm:takesPlaceIn  a owl:ObjectProperty;
-	rdfs:domain pm:Work ;
-	rdfs:range pm:Work ;
-	rdfs:comment "Does link work together and also builds a hierarchy".
+pmv:takesPlaceIn  a owl:ObjectProperty;
+	rdfs:domain pmv:Work ;
+	rdfs:range pmv:Work ;
+	rdfs:comment "Does link work together and also builds a hierarchy"@en;
+	rdfs:label "erfolgt in"@de.
 
-pm:descriptionFor  a owl:ObjectProperty;
-	rdfs:domain pm:Description ;
-	rdfs:range pm:Workpackage ;
-	rdfs:comment "".
+pmv:descriptionFor  a owl:ObjectProperty;
+	rdfs:domain pmv:Description ;
+	rdfs:range pmv:Workpackage ;
+	rdfs:comment ""@en;
+	rdfs:label "Beschreibung für"@de.
 
-pm:specificFor  a owl:ObjectProperty;
-	rdfs:domain pm:Description ;
-	rdfs:range pm:Partner ;
-	rdfs:comment "Different partners have different descriptions for (sub)workpackages".
+pmv:specificFor  a owl:ObjectProperty;
+	rdfs:domain pmv:Description ;
+	rdfs:range pmv:Partner ;
+	rdfs:comment "Different partners have different descriptions for (sub)workpackages"@en;
+	rdfs:label "specifisch für"@de.
 
-pm:hasResource  a owl:ObjectProperty;
+pmv:hasResource  a owl:ObjectProperty;
 	rdfs:domain owl:Thing ;
 	rdfs:range rdfs:Resource ;
-	rdfs:comment "Link to a resource from anything. Should use NFO".
+	rdfs:comment "Link to a resource from anything. Should use NFO."@en;
+	rdfs:label "hat Ressource"@de.
 	
 
 
@@ -170,47 +200,58 @@ pm:hasResource  a owl:ObjectProperty;
 #    Data properties
 #################################################################
 
-pm:hasNumber a owl:DatatypeProperty;
-	rdfs:domain pm:Countable;
+pmv:hasNumber a owl:DatatypeProperty;
+	rdfs:domain pmv:Countable;
 	rdfs:range rdfs:Literal;
-	rdfs:comment "Gives individual a distinct number or identifier".
+	rdfs:comment "Gives individual a distinct number or identifier";
+	rdfs:label "hat Nummer"@de.
 
-pm:monthNumber a owl:DatatypeProperty;
-	rdfs:domain pm:ProjectMonth;
-	rdfs:range xsd:integer.
+pmv:monthNumber a owl:DatatypeProperty;
+	rdfs:domain pmv:ProjectMonth;
+	rdfs:range xsd:integer;
+	rdfs:label "Monatsnummer"@de.
 
-pm:workamount a owl:DatatypeProperty;
-	rdfs:domain pm:PersonMonth;
-	rdfs:range xsd:double.
+pmv:workamount a owl:DatatypeProperty;
+	rdfs:domain pmv:PersonMonth;
+	rdfs:range xsd:double;
+	rdfs:label "Arbeitsmenge"@de.
 
-pm:scientificWorkamount a owl:DatatypeProperty;
-	rdfs:domain pm:PersonMonth;
-	rdfs:range xsd:double.
+pmv:scientificWorkamount a owl:DatatypeProperty;
+	rdfs:domain pmv:PersonMonth;
+	rdfs:range xsd:double;
+	rdfs:label "Arbeitsmenge Wissenschaftler:in"@de.
 
-pm:technicalWorkamount a owl:DatatypeProperty;
-	rdfs:domain pm:PersonMonth;
-	rdfs:range xsd:double.
+pmv:technicalWorkamount a owl:DatatypeProperty;
+	rdfs:domain pmv:PersonMonth;
+	rdfs:range xsd:double;
+	rdfs:label "Arbeitsmenge Techniker:in"@de.
 
-pm:organizationalWorkamount a owl:DatatypeProperty;
-	rdfs:domain pm:PersonMonth;
-	rdfs:range xsd:double.
+pmv:organizationalWorkamount a owl:DatatypeProperty;
+	rdfs:domain pmv:PersonMonth;
+	rdfs:range xsd:double;
+	rdfs:label "Arbeitsmenge Organisation"@de.
 
-pm:isAbortCriteria a owl:DatatypeProperty;
-	rdfs:domain pm:Milestone;
-	rdfs:range xsd:boolean.
+pmv:isAbortCriteria a owl:DatatypeProperty;
+	rdfs:domain pmv:Milestone;
+	rdfs:range xsd:boolean;
+	rdfs:label "ist Abbruchmeilenstein"@de.
 
-pm:requirement a owl:DatatypeProperty;
-	rdfs:domain pm:Description;
-	rdfs:range rdfs:Literal.
+pmv:requirement a owl:DatatypeProperty;
+	rdfs:domain pmv:Description;
+	rdfs:range rdfs:Literal;
+	rdfs:label "Voraussetzungen"@de.
 
-pm:solutionProcess a owl:DatatypeProperty;
-	rdfs:domain pm:Description;
-	rdfs:range rdfs:Literal.
+pmv:solutionProcess a owl:DatatypeProperty;
+	rdfs:domain pmv:Description;
+	rdfs:range rdfs:Literal;
+	rdfs:label "Lösungsweg"@de.
 
-pm:result a owl:DatatypeProperty;
-	rdfs:domain pm:Description;
-	rdfs:range rdfs:Literal.
+pmv:result a owl:DatatypeProperty;
+	rdfs:domain pmv:Description;
+	rdfs:range rdfs:Literal;
+	rdfs:label "Ergebnis"@de.
 
-pm:otherResources a owl:DatatypeProperty;
-	rdfs:domain pm:Description;
-	rdfs:range rdfs:Literal.
+pmv:otherResources a owl:DatatypeProperty;
+	rdfs:domain pmv:Description;
+	rdfs:range rdfs:Literal;
+	rdfs:label "sonstige Ressourcen"@de.
