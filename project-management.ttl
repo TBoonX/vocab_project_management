@@ -60,10 +60,6 @@ pmv:Workpackage a owl:Class;
 	rdfs:subClassOf pmv:Work;
 	rdfs:label "Arbeitspaket"@de.
 
-pmv:Subworkpackage a owl:Class;
-	rdfs:subClassOf pmv:Workpackage;
-	rdfs:label "Unterarbeitspaket"@de.
-
 pmv:Milestone a owl:Class;
 	rdfs:subClassOf owl:Thing;
 	rdfs:label "Meilenstein"@de.
@@ -257,29 +253,34 @@ pmv:end a owl:DatatypeProperty;
 
 pmv:personMonths  a owl:DatatypeProperty;
 	rdfs:domain pmv:Work ;
-	rdfs:range xsd:double ;
+	rdfs:range xsd:decimal ;
 	rdfs:comment "Person months planned"@en;
 	rdfs:label "Summe Personenmonate"@de.
 
 pmv:scientificPersonMonths a owl:DatatypeProperty;
 	rdfs:domain pmv:Work;
-	rdfs:range xsd:double;
+	rdfs:range xsd:decimal;
 	rdfs:label "Arbeitsmenge Wissenschaftler:in"@de.
 
 pmv:technicalPersonMonths a owl:DatatypeProperty;
 	rdfs:domain pmv:Work;
-	rdfs:range xsd:double;
+	rdfs:range xsd:decimal;
 	rdfs:label "Arbeitsmenge Techniker:in"@de.
 
 pmv:organizationalPersonMonths a owl:DatatypeProperty;
 	rdfs:domain pmv:Work;
-	rdfs:range xsd:double;
+	rdfs:range xsd:decimal;
 	rdfs:label "Arbeitsmenge Organisation"@de.
 
 pmv:isCritical a owl:DatatypeProperty;
 	rdfs:domain pmv:Milestone;
 	rdfs:range xsd:boolean;
 	rdfs:label "ist Abbruchmeilenstein"@de.
+
+pmv:dueDateProjectMonth a owl:DatatypeProperty;
+	rdfs:domain pmv:Milestone;
+	rdfs:range xsd:integer;
+	rdfs:label "Fälligkeit des Meilensteines (Projektmonat)"@de.
 
 pmv:requirement a owl:DatatypeProperty;
 	rdfs:domain pmv:Description;
