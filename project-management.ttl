@@ -34,7 +34,7 @@ pmv:Timed a owl:Class;
 pmv:Work a owl:Class;
 	rdfs:label "Arbeit"@de. # Has PersonMonths
 
-pmv:Contribution a owl:Class;
+pmv:Contribution a owl:Class; # TODO redo this - blank node creation for this structure seems to be too much hassle
 	rdfs:label "Beitrag"@de. # A workpackage has multiple contributions from different partners
 
 pmv:Project a owl:Class;
@@ -73,10 +73,6 @@ pmv:Task a owl:Class;
 	rdfs:subClassOf pmv:Work;
 	rdfs:label "Aufgabe"@de.
 
-pmv:ProjectMonth a owl:Class;
-	rdfs:comment "Provide the month of the project, where 1 is the first month of the project"@en;
-	rdfs:label "Projektmonat"@de.
-
 pmv:PersonMonth a owl:Class;
 	rdfs:comment "A person month worth of work"@en;
 	rdfs:label "Personenmonat"@de.
@@ -102,18 +98,6 @@ pmv:hasPartner a owl:ObjectProperty;
 	rdfs:range pmv:Partner ;
 	rdfs:comment "Connects project to partners"@en;
 	rdfs:label "hat Partner"@de.
-
-pmv:start a owl:ObjectProperty;
-	rdfs:domain pmv:Timed ;
-	rdfs:range pmv:ProjectMonth ;
-	rdfs:comment "Project month to start"@en;
-	rdfs:label "Start"@de.
-
-pmv:end a owl:ObjectProperty;
-	rdfs:domain pmv:Timed ;
-	rdfs:range pmv:ProjectMonth ;
-	rdfs:comment "Project month to end"@en;
-	rdfs:label "Ende"@de.
 
 pmv:hasTopworkpackage  a owl:ObjectProperty;
 	rdfs:domain pmv:Subworkpackage ;
@@ -200,16 +184,23 @@ pmv:hasResource  a owl:ObjectProperty;
 #    Data properties
 #################################################################
 
+pmv:start a owl:DatatypeProperty;
+rdfs:domain pmv:Timed ;
+rdfs:range xsd:integer ;
+rdfs:comment "Project month to start"@en;
+rdfs:label "Start"@de.
+
+pmv:end a owl:DatatypeProperty;
+rdfs:domain pmv:Timed ;
+rdfs:range xsd:integer ;
+rdfs:comment "Project month to end"@en;
+rdfs:label "Ende"@de.
+
 pmv:hasNumber a owl:DatatypeProperty;
 	rdfs:domain pmv:Countable;
 	rdfs:range rdfs:Literal;
 	rdfs:comment "Gives individual a distinct number or identifier";
 	rdfs:label "hat Nummer"@de.
-
-pmv:monthNumber a owl:DatatypeProperty;
-	rdfs:domain pmv:ProjectMonth;
-	rdfs:range xsd:integer;
-	rdfs:label "Monatsnummer"@de.
 
 pmv:workamount a owl:DatatypeProperty;
 	rdfs:domain pmv:PersonMonth;
