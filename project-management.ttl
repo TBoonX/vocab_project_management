@@ -161,10 +161,10 @@ pmv:referesToMilestone  a owl:ObjectProperty;
 	rdfs:comment "Work could be related to a milestone"@en;
 	rdfs:label "verknüpft mit Meilenstein"@de.
 
-pmv:hasConsortiumMilestone  a owl:ObjectProperty;
-	rdfs:domain pmv:PartnerMilestone ;
-	rdfs:range pmv:ConsortiumMilestone ;
-	rdfs:comment "A big milestone could consist of multiple smaller ones which are its compunds."@en;
+pmv:belongsToSuperiorMilestone  a owl:ObjectProperty;
+	rdfs:domain pmv:SubProjectMilestone ;
+	rdfs:range pmv:ProjectMilestone ;
+	rdfs:comment "A big milestone could consist of multiple smaller ones which are its compounds."@en;
 	rdfs:label "hat übergeordneten Meilenstein"@de.
 
 pmv:partOf  a owl:ObjectProperty;
