@@ -75,13 +75,13 @@ pmv:Milestone a owl:Class;
 	rdfs:subClassOf owl:Thing;
 	rdfs:label "Meilenstein"@de.
 	
-pmv:ConsortiumMilestone a owl:Class;
+pmv:ProjectMilestone a owl:Class;
 	rdfs:subClassOf pmv:Milestone;
-	rdfs:label "Konsortiumsmeilenstein"@de.
+	rdfs:label "Projektmeilenstein"@de.
 	
-pmv:PartnerMilestone a owl:Class;
+pmv:SubProjectMilestone a owl:Class;
 	rdfs:subClassOf pmv:Milestone;
-	rdfs:label "Partnermeilenstein"@de.
+	rdfs:label "Teilprojektmeilenstein"@de.
 
 pmv:Task a owl:Class;
 	rdfs:subClassOf tmo:Task;
