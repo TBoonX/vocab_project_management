@@ -1,4 +1,4 @@
-@prefix pmv: <http://vocabs.coypu.org/pmv/> .
+@prefix pmv: <https://vocabs.coypu.org/pmv/> .
 @prefix org: <http://www.w3.org/ns/org#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -37,10 +37,10 @@ pmv: a owl:Ontology;
 #################################################################
 
 pmv:Work a owl:Class; # Instances should have dc:identifier, rdfs:label and dc:description
+	rdfs:subClassOf owl:Thing;
 	rdfs:label "Arbeit"@de.
 
 pmv:Project a owl:Class;
-	rdfs:subClassOf owl:Thing;
 	rdfs:subClassOf pmv:Work;
 	rdfs:label "Projekt"@de.
 
@@ -67,9 +67,12 @@ pmv:Subcontractor a owl:Class;
 	rdfs:label "Untervertragspartner:in"@de.
 
 pmv:Workpackage a owl:Class;
-	rdfs:subClassOf owl:Thing;
 	rdfs:subClassOf pmv:Work;
 	rdfs:label "Arbeitspaket"@de.
+
+pmv:Subworkpackage a owl:Class;
+	rdfs:subClassOf pmv:Work;
+	rdfs:label "Unterarbeitspaket"@de.
 
 pmv:Milestone a owl:Class;
 	rdfs:subClassOf owl:Thing;
@@ -93,9 +96,14 @@ pmv:Description a owl:Class; # TODO entfernen
 	rdfs:comment "Provide additional information like requirements or results"@en;
 	rdfs:label "Beschreibung"@de.
 
+pmv:MonitoringStatus a owl:Class;
+	rdfs:subClassOf owl:Thing;
+	rdfs:comment ""@en;
+	rdfs:label "Kontrollstatus"@de.
+
 pmv:Status a owl:Class;
 	rdfs:subClassOf owl:Thing;
-	rdfs:comment "Status of a work"@en;
+	rdfs:comment ""@en;
 	rdfs:label "Status"@de.
 
 pmv:PlannedResult a owl:Class; # Should have rdfs:label, dc:description
@@ -125,13 +133,13 @@ pmv:hasConsortium a owl:ObjectProperty;
 	rdfs:comment "Connects consortium to partners"@en;
 	rdfs:label "hat Konsortium"@de.
 
-pmv:leads a owl:ObjectProperty;
+pmv:leads a owl:ObjectProperty; # Subworkpackages do not have leads
 	rdfs:domain pmv:Partner ;
 	rdfs:range pmv:Work ;
 	rdfs:comment "Lead over work"@en;
 	rdfs:label "führt"@de.
 
-pmv:leadBy a owl:ObjectProperty;
+pmv:leadBy a owl:ObjectProperty; # Subworkpackages do not have leads
 	rdfs:domain pmv:Work ;
 	rdfs:range pmv:Partner ;
 	rdfs:comment "Lead by"@en;
@@ -156,9 +164,9 @@ pmv:contributionsBy a owl:ObjectProperty;
 	rdfs:label "erhält Arbeit von"@de.
 
 pmv:referesToMilestone  a owl:ObjectProperty;
-	rdfs:domain pmv:Work ;
-	rdfs:range pmv:Milestone ;
-	rdfs:comment "Work could be related to a milestone"@en;
+	rdfs:domain pmv:Task ;
+	rdfs:range pmv:SubProjectMilestone ;
+	rdfs:comment "Tasks could be related to a subprojectmilestone"@en;
 	rdfs:label "verknüpft mit Meilenstein"@de.
 
 pmv:belongsToSuperiorMilestone  a owl:ObjectProperty;
@@ -167,11 +175,23 @@ pmv:belongsToSuperiorMilestone  a owl:ObjectProperty;
 	rdfs:comment "A big milestone could consist of multiple smaller ones which are its compounds."@en;
 	rdfs:label "hat übergeordneten Meilenstein"@de.
 
-pmv:partOf  a owl:ObjectProperty;
-	rdfs:domain pmv:Work ;
-	rdfs:range pmv:Work ;
+pmv:isPartOfSubworkpackage  a owl:ObjectProperty;
+	rdfs:domain pmv:Task ;
+	rdfs:range pmv:Subworkpackage ;
+	rdfs:comment "A big milestone could consist of multiple smaller ones which are its compounds."@en;
+	rdfs:label "hat übergeordneten Meilenstein"@de.
+
+pmv:isPartOfWorkpackage  a owl:ObjectProperty;
+	rdfs:domain pmv:Subworkpackage ;
+	rdfs:range pmv:Workpackage ;
 	rdfs:comment "Does link work together and also builds a hierarchy"@en;
 	rdfs:label "teil von"@de.
+
+pmv:dependsOn  a owl:ObjectProperty;
+	rdfs:domain pmv:Work ;
+	rdfs:range pmv:Work ;
+	rdfs:comment "One work is dependant on another work"@en;
+	rdfs:label "Abhängig von"@de.
 
 pmv:descriptionFor  a owl:ObjectProperty;
 	rdfs:domain pmv:Description ;
@@ -202,6 +222,12 @@ pmv:hasStatus  a owl:ObjectProperty;
 	rdfs:range pmv:Status ;
 	rdfs:comment "Link to current status"@en;
 	rdfs:label "hat Status"@de.
+
+pmv:hasMonitoringStatus  a owl:ObjectProperty;
+	rdfs:domain pmv:Work ;
+	rdfs:range pmv:MonitoringStatus ;
+	rdfs:comment ""@en;
+	rdfs:label "hat Kontrollstatus"@de.
 
 pmv:referesTo a owl:ObjectProperty;
 	rdfs:domain pmv:Result ;
@@ -234,14 +260,14 @@ pmv:subcontracts a owl:ObjectProperty;
 	rdfs:label "unterbeauftragt"@de.
 
 pmv:hasPlannedResult  a owl:ObjectProperty;
-	rdfs:domain pmv:Work ;
-	rdfs:range pmv:PlannedResult ; # workpackage for example
+	rdfs:domain pmv:Workpackage ;
+	rdfs:range pmv:PlannedResult ;
 	rdfs:comment ""@en;
 	rdfs:label "hat geplantes Ergebnis"@de.
 
 pmv:hasResult  a owl:ObjectProperty;
-	rdfs:domain pmv:Work ;
-	rdfs:range pmv:Result ; # workpackage for example
+	rdfs:domain pmv:Work ; # workpackage for example
+	rdfs:range pmv:Result ;
 	rdfs:comment ""@en;
 	rdfs:label "hat Ergebnis"@de.
 
@@ -316,3 +342,6 @@ pmv:otherResources a owl:DatatypeProperty;
 pmv:Planned a pmv:Status.
 pmv:Ongoing a pmv:Status.
 pmv:Finished a pmv:Status.
+pmv:Green a pmv:MonitoringStatus.
+pmv:Yellow a pmv:MonitoringStatus.
+pmv:Red a pmv:MonitoringStatus.
