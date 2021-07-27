@@ -47,7 +47,7 @@ pmv:Project a owl:Class;
 pmv:Member a owl:Class;
 	rdfs:subClassOf foaf:Organization;
 	rdfs:subClassOf org:Organization;
-	rdfs:label "Partner:in"@de.
+	rdfs:label "Projektteilnehmer:in"@de.
 
 pmv:Partner a owl:Class;
 	rdfs:subClassOf pmv:Member;
@@ -178,14 +178,14 @@ pmv:belongsToSuperiorMilestone  a owl:ObjectProperty;
 pmv:isPartOfSubworkpackage  a owl:ObjectProperty;
 	rdfs:domain pmv:Task ;
 	rdfs:range pmv:Subworkpackage ;
-	rdfs:comment "A big milestone could consist of multiple smaller ones which are its compounds."@en;
-	rdfs:label "hat übergeordneten Meilenstein"@de.
+	rdfs:comment "Is part of a subworkpackage."@en;
+	rdfs:label "teil von Untermeilenstein"@de.
 
 pmv:isPartOfWorkpackage  a owl:ObjectProperty;
 	rdfs:domain pmv:Subworkpackage ;
 	rdfs:range pmv:Workpackage ;
-	rdfs:comment "Does link work together and also builds a hierarchy"@en;
-	rdfs:label "teil von"@de.
+	rdfs:comment "Is part of workpackage."@en;
+	rdfs:label "hat übergeordneten Meilenstein"@de.
 
 pmv:dependsOn  a owl:ObjectProperty;
 	rdfs:domain pmv:Work ;
