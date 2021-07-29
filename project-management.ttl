@@ -133,17 +133,29 @@ pmv:hasConsortium a owl:ObjectProperty;
 	rdfs:comment "Connects consortium to partners"@en;
 	rdfs:label "hat Konsortium"@de.
 
-pmv:leads a owl:ObjectProperty; # Subworkpackages do not have leads
+pmv:leads a owl:ObjectProperty;
 	rdfs:domain pmv:Partner ;
-	rdfs:range pmv:Work ;
+	rdfs:range pmv:Workpackage ;
 	rdfs:comment "Lead over work"@en;
 	rdfs:label "führt"@de.
 
-pmv:leadBy a owl:ObjectProperty; # Subworkpackages do not have leads
-	rdfs:domain pmv:Work ;
+pmv:leadBy a owl:ObjectProperty;
+	rdfs:domain pmv:Workpackage ;
 	rdfs:range pmv:Partner ;
 	rdfs:comment "Lead by"@en;
 	rdfs:label "geführt von"@de.
+
+pmv:assignedFor a owl:ObjectProperty;
+	rdfs:domain pmv:Partner ;
+	rdfs:range pmv:Task ;
+	rdfs:comment "Assigned for"@en;
+	rdfs:label "ist folgendem zugewiesen"@de.
+
+pmv:assignee a owl:ObjectProperty;
+	rdfs:domain pmv:Task ;
+	rdfs:range pmv:Partner ;
+	rdfs:comment "Assignee"@en;
+	rdfs:label "Beauftragte"@de.
 
 pmv:inChargeOf a owl:ObjectProperty;
 	rdfs:domain pmv:Partner ;
@@ -179,13 +191,13 @@ pmv:isPartOfSubworkpackage  a owl:ObjectProperty;
 	rdfs:domain pmv:Task ;
 	rdfs:range pmv:Subworkpackage ;
 	rdfs:comment "Is part of a subworkpackage."@en;
-	rdfs:label "teil von Untermeilenstein"@de.
+	rdfs:label "teil von Unterarbeitspaket"@de.
 
 pmv:isPartOfWorkpackage  a owl:ObjectProperty;
 	rdfs:domain pmv:Subworkpackage ;
 	rdfs:range pmv:Workpackage ;
 	rdfs:comment "Is part of workpackage."@en;
-	rdfs:label "hat übergeordneten Meilenstein"@de.
+	rdfs:label "hat übergeordnetes Arbeitspaket"@de.
 
 pmv:dependsOn  a owl:ObjectProperty;
 	rdfs:domain pmv:Work ;
